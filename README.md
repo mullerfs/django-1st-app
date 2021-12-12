@@ -1,6 +1,7 @@
 # django-1st-app
 
 ## Set de Enviroment variables
+Create a file in the root directory ``.env`` with the content
 
 ```bash
 DEBUG=True
