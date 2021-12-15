@@ -1,26 +1,48 @@
-{% extends "listings/base.html" %}
-
-{%block content%}
+{% extends "listings/base.html" %} {%block content%}
 
 <h1>LISTINGS</h1>
-
-<div class="col"> 
+<div class="form-group">
     <div class="card">
-        {% for listing in all_listings %}
-
-            <p><b>Title:</b> {{ listing.title }}</p>
-            <p><b>Condition:</b> {{ listing.condition }}</p>
-            <p><b>Sale Type:</b> {{ listing.sale_type }}</p> 
-            <p><b>Price:</b> $ {{ listing.price|floatformat:2 }}</p>
-            <p><b>Location:</b> {{ listing.city }}, {{ listing.state }}</p> 
-            <p><b>Post Date:</b> {{ listing.list_date }}</p> 
-            <ul>
-                <a class="btn" href="">View Listing</a>
-            </ul>
-            <hr/>
-        {% empty %}
-            <h3>No listings found. Try again.</h3>
-        {% endfor %} 
+        <form method="get">
+            <p><b>Condition:</b> {{ my_Filter.form.condition }}</p>
+            <b>State:</b>{{ my_Filter.form.state }}</p>
+            <b>City:</b>{{ my_Filter.form.city }}</p>
+            <button class="btn" type="submit">Search</button>
+        </form>
     </div>
+</div>
+
+<div class="row">
+  <div class="col">
+    <div class="card">
+      <table>
+        <tr>
+          <th></th>
+          <th></th>
+          <th>Product</th>
+          <th>Price</th>
+          <th>Email</th>
+          <th>Date Added</th>
+          <th></th>
+        </tr>
+        {% for listing in all_listings %}
+        <tr>
+          <td><img src="{{ listing.main_photo.url }}" height=300px alt="connect" style="max-height:200px"></td>
+          <td><img src="{{ listing.photo_1.url }}" height=300px alt="connect" style="max-height:200px"></td>
+          <td>{{ listing.title }}</td>
+          <td>{{ listing.price|floatformat:2 }}</td>
+          <td>{{ listing.contact_email }}</td>
+        <td>{{ listing.list_date }}</td>
+          <td><a class="btn" href="{% url 'listings:detail' listing.id %}">View</a></td>
+        </tr>
+        {% empty %}
+        <h3>No listings found. Try again.</h3>
+        {% endfor %}
+      </table>
+      <div class="container">
+				<a class="btn" href="{% url 'listings:new_listing'%}"> New Listing</a>
+			</div>
+    </div>
+  </div>
 </div>
 {%endblock content%}

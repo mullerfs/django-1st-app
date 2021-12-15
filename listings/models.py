@@ -2,6 +2,8 @@ from django.db import models
 
 from django.utils.timezone import now
 from datetime import datetime
+from django.contrib.auth.models import User
+
 
 
 class Listings(models.Model):
@@ -40,6 +42,8 @@ class Listings(models.Model):
     photo_2 = models.ImageField(blank=True)
     list_date = models.DateTimeField(default=now)
     contact_email = models.CharField(max_length=50)
+    user = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
+
 
     def __str__(self):
         return self.title
