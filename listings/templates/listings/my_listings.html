@@ -1,32 +1,35 @@
-{% extends "listings/base.html" %} {%block content%}
-
-<h1>LISTINGS</h1>
+{% extends "listings/base.html" %}
+        
+{% block content %}
+                          
+<h2 class="text-center mb-3">MY LISTINGS:</h2>
+        
 <div class="row">
-  <div class="col">
-    <div class="card">
-      <table>
-        <tr>
-          <th>Product</th>
-          <th>Price</th>
-          <th>Date Added</th>
-        </tr>
-        {% for listing in my_listings %}
-        <tr>
-          <td>{{ listing.title }}</td>
-          <td>{{ listing.price|floatformat:2 }}</td>
-          <td>{{ listing.list_date }}</td>
-          <td><a class="btn" href="{% url 'listings:detail' listing.id %}">View</a></td>
-          <td><a class="btn" href="{% url 'listings:edit_listing' listing.id %}">Edit</a></td>
-          <td><a class="btn" href="{% url 'listings:delete_listing' listing.id %}">Delete</a></td>
-        </tr>
-        {% empty %}
-        <h3>No listings found. Try again.</h3>
-        {% endfor %}
-      </table>
-      <div class="container">
-				<a class="btn" href="{% url 'listings:new_listing'%}"> New Listing</a>
-			</div>
+	<div class="col">
+		<div class="container text-center p-3">
+			<table class="table text-center">
+				<tr>
+					<th>Product</th>
+					<th>Date Listed</th>
+					<th></th>
+					<th></th>
+					<th></th>
+				</tr>
+				{% for my_listing in my_listings %}
+				<tr>
+					<td>{{ my_listing.title }}</td>
+					<td>{{ my_listing.list_date }}</td>
+					<td><a class="btn btn-warning"  href="{% url 'listings:detail' my_listing.id %}">View</a></td>
+					<td><a class="btn btn-warning"  href="{% url 'listings:edit_listing' my_listing.id %}">Edit</a></td>
+					<td><a class="btn btn-warning"  href="{% url 'listings:delete_listing' my_listing.id %}">Delete</a></td>
+				</tr>
+				{% endfor %}
+      		</table>
+      		<div class="container text-center">
+      			<a class="btn btn-warning"  href="{% url 'listings:new_listing'%}">New Listing</a>
+        	</div>
+    	</div>
     </div>
-  </div>
-</div>
-{%endblock content%}
+</div>     
+        
+{% endblock content %}
